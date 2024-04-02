@@ -7,35 +7,10 @@ function App() {
 
   return (
     <div className="w-full max-w-lg mx-auto text-center p-6">
-      <div className="flex justify-center gap-4">
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img
-            src={reactLogo}
-            className="logo react"
-            alt="React logo"
-          />
-        </a>
-      </div>
-      <h1 className=" text-3xl font-bold my-6">
-        Vite + React + Daisy UI
-      </h1>
-      <div className=" text-center bg-base-300 p-12">
-        <button
-          className="btn btn-primary w-40 mx-auto mb-6"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-        <p className="read-the-docs">
-          Click on the Vite and React logos to learn more
-        </p>
-      </div>
+     <label className="input input-bordered flex items-center gap-2">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" /></svg>
+  <input type="text" className="grow" placeholder="Username" />
+</label>
     </div>
   );
 }
