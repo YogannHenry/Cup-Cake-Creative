@@ -8,14 +8,15 @@ import {
 
 import App from './App';
 import Login from './components/Login/Login';
+import Error from './pages/Error/Error';
 
 import './index.css';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />}>
+    <Route path="/" element={<App />} errorElement={<Error />}>
       <Route index element={<Login />} />
-      <Route path="/">
+      <Route path="/" errorElement={<Error />}>
 
       </Route>
     </Route>
