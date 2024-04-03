@@ -1,19 +1,49 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import styled from "styled-components";
+import NavBar from "../../components/reusableUX/NavBar/NavBar";
+import { theme } from "../../assets/theme/index";
+
+
+const WrapperStyled = styled.div`
+  height: 100vh;
+  width: 100%;
+  padding: 20px 50px;
+  background-color: ${theme.colors.primary};
+`
+
+const OrderPageStyled = styled.div`
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px 10px rgba(0, 0, 0, 0.2);
+
+  h3 {
+    color: #000;
+    font-size: 1.5rem;
+  }
+  a {
+    text-decoration: none;
+    color: #000;
+    font-size: 1.5rem;
+    border-radius: 5px;
+  }
+`;
 
 function Login() {
-    const location = useLocation();
-    console.log("loc:", location);
-    console.log("state:",location.state);
-    const userName = location.state?.userName || ''; // Utilisation de la syntaxe ?. pour vérifier la présence de location.state.userName
+  const location = useLocation();
+  console.log("loc:", location);
+  console.log("state:", location.state);
+  const userName = location.state?.userName || ""; 
 
-    return (
-        <div className="h-screen w-full flex items-center">
-            <h3>Bonjour {userName}</h3>
-            <NavLink to='/' className=" border-2 p-2">
-               Déconnexion
-            </NavLink>
-        </div>
-    );
+  
+  return (
+    <WrapperStyled>
+      <OrderPageStyled>
+        <NavBar userName={userName} />
+      </OrderPageStyled>
+    </WrapperStyled>
+  );
 }
- 
+
 export default Login;
