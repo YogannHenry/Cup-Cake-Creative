@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [name, setName] = useState('');
   const [userName, setUserName] = useState('');
   const [errorMessages, setErrorMessages] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault(); 
@@ -16,6 +18,8 @@ function Login() {
       setErrorMessages('');
     }
     setUserName(name);
+    navigate("/orderPage", { state: { userName: name }});
+
     setName('');
   }
 

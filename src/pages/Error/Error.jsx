@@ -1,4 +1,4 @@
-
+import { NavLink } from "react-router-dom";
 
 function Error() {
   return (
@@ -14,6 +14,9 @@ function Error() {
       Nous sommes désolé, Une erreur s'est produite.
 
     </div>
+    <NavLink to='/' className=" border-2 p-2">
+      Ramènes tes fesses à la maison
+      </NavLink>
       </div>
     </>
   );
