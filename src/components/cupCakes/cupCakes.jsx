@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import SbCard from "../reusableUX/Card";
+import CupCake from "./cupCake"
 
 const CupCakesStyled = styled.div`
   display: flex;
@@ -37,13 +38,9 @@ export default function CupCakes() {
     <CupCakesStyled>
       <div className="grid-container">
         {cupcakes.map((cupcake) => (
-          <SbCard
+          <CupCake
             key={cupcake.id}
-            image={cupcake.imageSource}
-            title={cupcake.title}
-            price={cupcake.price}
-            button={true}
-            shadow={true}
+            cupcake={cupcake}
           />
         ))}
       </div>
