@@ -18,6 +18,14 @@ const StyledButton = styled.button`
     gap: 10px;
     width: 100%;
     cursor: pointer;
+    border: 1px solid ${theme.colors.primary_cake};
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+
+  &:hover {
+    background-color: white;
+    color: ${theme.colors.primary_cake};
+    border: 1px solid ${theme.colors.primary_cake};
+  }
 `;
 
 const Icon = styled.span`

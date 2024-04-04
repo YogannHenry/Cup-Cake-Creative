@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import NavBar from "../../components/reusableUX/NavBar/NavBar";
 import { theme } from "../../assets/theme/index";
+import CupCakes from "../../components/cupCakes/cupCakes";
 
 
 const WrapperStyled = styled.div`
@@ -41,6 +42,7 @@ function Login() {
     <WrapperStyled>
       <OrderPageStyled>
         <NavBar userName={userName} />
+        <CupCakes />
       </OrderPageStyled>
     </WrapperStyled>
   );
