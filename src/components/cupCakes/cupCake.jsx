@@ -1,25 +1,29 @@
 import SbCard from "../reusableUX/Card";
 import { formatPrice } from "../../utils/maths";
+import styled from "styled-components";
+import { theme } from "../../assets/theme/index";
 
 export default function CupCake({ cupcake }) {
-  console.log("cupcake:", cupcake);
   const cupcakePrice = formatPrice(cupcake.price);
-  console.log("cupcakePrice:", cupcakePrice);
-  const width = "220px";
-  const height = "280px";
-  const buttonTitle = "Ajouter";
+
+const SbCardStyled = styled.div`
+color:${theme.colors.primary_cake};
+`;
 
   return (
+    <SbCardStyled>
     <SbCard
       key={cupcake.id}
       image={cupcake.imageSource}
       title={cupcake.title}
       price={cupcakePrice}
-      width={width}
-      height={height}
+      width={"220px"}
+      height={"280px"}
       button={true}
       shadow={true}
-      buttonTitle={buttonTitle}
+      buttonTitle={"Ajouter"}
+      fontFamily={"Pacifico"}
     />
+    </SbCardStyled>
   );
 }

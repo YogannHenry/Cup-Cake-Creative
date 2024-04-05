@@ -16,6 +16,11 @@ const StyledCard = styled.div`
     height: ${props => props.height ? props.height : '280px'};
     box-shadow: ${props => props.shadow ? '-8px 8px 20px 0px rgb(0 0 0 / 20%)' : 'none'};
 
+    h3 {
+        font-family: ${props => props.fontFamily ? props.fontFamily : "Open-sans" };
+
+    }
+
     img {
         width: 100%;
         height: 100%;
@@ -39,7 +44,7 @@ const StyledCard = styled.div`
 `;
 
 // eslint-disable-next-line react/prop-types
-const SbCard = ({ image, title, buttonTitle, price, button, shadow, width, height }) => { 
+const SbCard = ({ image, title, buttonTitle, price, button, shadow, width, height, fontFamily }) => { 
 
     // console.log("image:", `../../assets${image}`);
     const imageCupCake = `/src/assets${image}`;
@@ -47,7 +52,11 @@ const SbCard = ({ image, title, buttonTitle, price, button, shadow, width, heigh
     // console.log ("cupCakeImg:", cupCakeImg)
     console.log("width:", width)
     return (
-        <StyledCard shadow={shadow} width={width} height={height}>
+        <StyledCard 
+        shadow={shadow} 
+        width={width} 
+        height={height}
+        fontFamily={fontFamily}>
             {/* <img src={cupCakeImg} alt="card" /> */}
             {image && <img src={imageCupCake} alt="card" />}
             <h3>{title}</h3>

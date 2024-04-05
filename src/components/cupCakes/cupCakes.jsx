@@ -2,7 +2,6 @@ import { fakeMenu } from "../../fakeData/fakeMenu";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import SbCard from "../reusableUX/Card";
 import CupCake from "./cupCake"
 
 const CupCakesStyled = styled.div`
@@ -21,23 +20,21 @@ const CupCakesStyled = styled.div`
 `;
 
 export default function CupCakes() {
-  console.log("fakeSmallMenu:", fakeMenu);
-
   const [cupcakes, setCupcakes] = useState([]);
 
   const fetchCupcakes = () => {
     setCupcakes(fakeMenu);
   };
+
   useEffect(() => {
     fetchCupcakes();
   }, []);
 
-  console.log("cupcakes:", cupcakes);
 
   return (
     <CupCakesStyled>
       <div className="grid-container">
-        {cupcakes.map((cupcake) => (
+        {cupcakes.slice(0, 8).map((cupcake) => ( 
           <CupCake
             key={cupcake.id}
             cupcake={cupcake}
