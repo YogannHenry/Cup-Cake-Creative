@@ -3,14 +3,16 @@ import styled from "styled-components";
 import NavBar from "../../components/reusableUX/NavBar/NavBar";
 import { theme } from "../../assets/theme/index";
 import CupCakes from "../../components/cupCakes/cupCakes";
-
+import AdminBar from "../reusableUX/AdminBar/AdminBar";
+import { useState } from "react";
+import { useIsAdmin } from '../../Contexts/IsAdminContext';
 
 const WrapperStyled = styled.div`
   height: 100vh;
   width: 100%;
   padding: 20px 50px;
   background-color: ${theme.colors.primary};
-`
+`;
 
 const OrderPageStyled = styled.div`
   height: 100%;
@@ -36,13 +38,24 @@ function Login() {
   console.log("loc:", location);
   console.log("state:", location.state);
   const userName = location.state?.userName || ""; 
+  const [isExpanded, setIsExpanded] = useState(false);
+  const { isAdmin, toggleIsAdmin } = useIsAdmin(); 
 
+  const handleArrowClick = () => {
+    setIsExpanded(!isExpanded);
+  };
   
   return (
     <WrapperStyled>
       <OrderPageStyled>
         <NavBar userName={userName} />
         <CupCakes />
+        {isAdmin && (
+          <div>
+            <AdminBar onArrowClick={handleArrowClick} isExpanded={isExpanded}/>
+            {/* Container qui prendra la largeur totale de la page et 1/3 de la hauteur */}
+          </div>
+        )}
       </OrderPageStyled>
     </WrapperStyled>
   );
