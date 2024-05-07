@@ -1,11 +1,15 @@
 import styled from 'styled-components';
-// import { theme } from '../../assets/theme/index';
 import SbButton  from './button';
-// import cupCakeImg from '../../assets/images/cupcake-item.png';
+import CupCakeContext from "../../Contexts/CupCakeContext";
+import { useContext } from 'react';
+import { useIsAdmin } from '../../Contexts/IsAdminContext';
+import { theme } from '../../assets/theme/index'
+
+
 
 
 const StyledCard = styled.div`
-    background-color: white;
+    background-color: ${props => props.cardIsSelectedByUSer ? theme.colors.primary_cake : 'white'};
     border-radius: 12px;
     padding: 20px;
     display: flex;
@@ -44,20 +48,34 @@ const StyledCard = styled.div`
 `;
 
 // eslint-disable-next-line react/prop-types
-const SbCard = ({ image, title, buttonTitle, price, button, shadow, width, height, fontFamily }) => { 
+const SbCard = ({ image, title, buttonTitle, price, button, shadow, width, height, fontFamily, id, cardIsSelectedByUSer }) => { 
+    const { cupCakesContext, setCupCakesContext, setSelectedCupCakeContext, selectedCupCakeContext } = useContext(CupCakeContext);
+  const { isAdmin } = useIsAdmin(); 
+    
+    const handleDelete = (cupCakesId) => {
+        setCupCakesContext((cupCakes) => {
+            return cupCakes.filter((cupCake) => cupCake.id !== cupCakesId);
+        });
+    }
 
-    // console.log("image:", `../../assets${image}`);
+    const handleCupCakeSelection = () => {
+        const cupCake = cupCakesContext.find((cupCake) => cupCake.id === id);
+        setSelectedCupCakeContext(cupCake)
+    };
+
     const imageCupCake = `/src/assets${image}`;
-    // console.log("imageCupCake:", imageCupCake);
-    // console.log ("cupCakeImg:", cupCakeImg)
-    console.log("width:", width)
     return (
         <StyledCard 
         shadow={shadow} 
         width={width} 
         height={height}
-        fontFamily={fontFamily}>
+        fontFamily={fontFamily}
+        cardIsSelectedByUSer={cardIsSelectedByUSer}
+        onClick={handleCupCakeSelection}>
             {/* <img src={cupCakeImg} alt="card" /> */}
+            {isAdmin && (
+            <SbButton title="Delete" onClick={() => handleDelete(id)} radius={true}/>
+        )}
             {image && <img src={imageCupCake} alt="card" />}
             <h3>{title}</h3>
             <footer>

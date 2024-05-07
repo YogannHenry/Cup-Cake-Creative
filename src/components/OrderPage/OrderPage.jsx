@@ -4,8 +4,13 @@ import NavBar from "../../components/reusableUX/NavBar/NavBar";
 import { theme } from "../../assets/theme/index";
 import CupCakes from "../../components/cupCakes/cupCakes";
 import AdminBar from "../reusableUX/AdminBar/AdminBar";
-import { useState } from "react";
 import { useIsAdmin } from '../../Contexts/IsAdminContext';
+import AddProductForm from "./ProductManagement/AddProductForm";
+import ModifyProductForm from "./ProductManagement/ModifyProductForm";
+import { useState } from "react";
+import CupCakeContext from "../../Contexts/CupCakeContext";
+import { fakeMenu } from "../../fakeData/fakeMenu";
+
 
 const WrapperStyled = styled.div`
   height: 100vh;
@@ -15,6 +20,7 @@ const WrapperStyled = styled.div`
 `;
 
 const OrderPageStyled = styled.div`
+  position: relative;
   height: 100%;
   width: 100%;
   background-color: white;
@@ -35,29 +41,51 @@ const OrderPageStyled = styled.div`
 
 function Login() {
   const location = useLocation();
-  console.log("loc:", location);
-  console.log("state:", location.state);
   const userName = location.state?.userName || ""; 
   const [isExpanded, setIsExpanded] = useState(false);
-  const { isAdmin, toggleIsAdmin } = useIsAdmin(); 
+  const { isAdmin } = useIsAdmin(); 
+  const [tabs, setTabs] = useState("");
+  const [cupCakesContext, setCupCakesContext] = useState(fakeMenu);
+  const [selectedCupCakeContext, setSelectedCupCakeContext] = useState(null);
 
   const handleArrowClick = () => {
     setIsExpanded(!isExpanded);
   };
-  
+
+  const handleTabClick = (selectedTab) => {
+    setTabs(selectedTab);
+  };
+
+
+
+  const cupCakesContextValue = {
+    cupCakesContext,
+    setCupCakesContext,
+    selectedCupCakeContext,
+    setSelectedCupCakeContext,
+  };
+
   return (
-    <WrapperStyled>
-      <OrderPageStyled>
-        <NavBar userName={userName} />
-        <CupCakes />
-        {isAdmin && (
-          <div>
-            <AdminBar onArrowClick={handleArrowClick} isExpanded={isExpanded}/>
-            {/* Container qui prendra la largeur totale de la page et 1/3 de la hauteur */}
-          </div>
-        )}
-      </OrderPageStyled>
-    </WrapperStyled>
+    <CupCakeContext.Provider value={cupCakesContextValue}>
+      <WrapperStyled>
+        <OrderPageStyled>
+          <NavBar userName={userName} />
+          <CupCakes CupCake={cupCakesContext} />
+          {isAdmin && (
+            <div>
+              <AdminBar 
+                onArrowClick={handleArrowClick} 
+                isExpanded={isExpanded} 
+                onTabChange={handleTabClick}
+              >
+                {tabs === 'AddProductForm' && <AddProductForm />}
+                {tabs === 'ModifyProductForm' && <ModifyProductForm />}
+              </AdminBar>
+            </div>
+          )}
+        </OrderPageStyled>
+      </WrapperStyled>
+    </CupCakeContext.Provider>
   );
 }
 

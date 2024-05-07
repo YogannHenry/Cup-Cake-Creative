@@ -1,14 +1,14 @@
-import { fakeMenu } from "../../fakeData/fakeMenu";
-import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useState } from "react";
 
-import CupCake from "./cupCake"
+import CupCakeItem from "./cupCake"; 
 
 const CupCakesStyled = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   height: 93%;
+  z-index: 1;
   .grid-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -19,25 +19,30 @@ const CupCakesStyled = styled.div`
   }
 `;
 
-export default function CupCakes() {
-  const [cupcakes, setCupcakes] = useState([]);
+import PropTypes from "prop-types";
 
-  const fetchCupcakes = () => {
-    setCupcakes(fakeMenu);
-  };
+CupCakes.propTypes = {
+  CupCake: PropTypes.array,
+};
 
-  useEffect(() => {
-    fetchCupcakes();
-  }, []);
+export default function CupCakes({ CupCake }) {
 
+  const [ cardIsSelectedByUSer, setCardIsSelectedByUSer ] = useState(false);
+
+  const handleCardClick = () => {
+    setCardIsSelectedByUSer(!cardIsSelectedByUSer);
+  }
 
   return (
     <CupCakesStyled>
       <div className="grid-container">
-        {cupcakes.slice(0, 8).map((cupcake) => ( 
-          <CupCake
+        {/* {CupCake.map((cupcake) => ( */}
+        {CupCake.slice(0, 8).map((cupcake) => ( 
+          <CupCakeItem 
             key={cupcake.id}
             cupcake={cupcake}
+            cardIsSelectedByUSer={handleCardClick}
+            
           />
         ))}
       </div>

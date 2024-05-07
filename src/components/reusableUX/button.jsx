@@ -16,7 +16,7 @@ const StyledButton = styled.button`
     display: flex;
     justify-content: center;
     gap: 10px;
-    width: 100%;
+    width: ${props => props.size ? props.size : '100%'};
     cursor: pointer;
     border: 1px solid ${theme.colors.primary_cake};
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
@@ -33,9 +33,9 @@ const Icon = styled.span`
   height: 24px;
 `;
 
-const SbButton = ({ title, icon, radius, onClick }) => {
+const SbButton = ({ title, icon, radius, onClick, size }) => {
   return (
-    <StyledButton radius={radius} onClick={onClick}>
+    <StyledButton radius={radius} onClick={onClick} size={size}>
       {title}
       {icon && <Icon>{icon}</Icon>}
     </StyledButton>
