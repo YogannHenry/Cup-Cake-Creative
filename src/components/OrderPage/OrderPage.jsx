@@ -7,9 +7,10 @@ import AdminBar from "../reusableUX/AdminBar/AdminBar";
 import { useIsAdmin } from '../../Contexts/IsAdminContext';
 import AddProductForm from "./ProductManagement/AddProductForm";
 import ModifyProductForm from "./ProductManagement/ModifyProductForm";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import CupCakeContext from "../../Contexts/CupCakeContext";
 import { fakeMenu } from "../../fakeData/fakeMenu";
+import SbButton from "../reusableUX/button";
 
 
 const WrapperStyled = styled.div`
@@ -42,14 +43,15 @@ const OrderPageStyled = styled.div`
 function Login() {
   const location = useLocation();
   const userName = location.state?.userName || ""; 
-  const [isExpanded, setIsExpanded] = useState(false);
   const { isAdmin } = useIsAdmin(); 
   const [tabs, setTabs] = useState("");
   const [cupCakesContext, setCupCakesContext] = useState(fakeMenu);
   const [selectedCupCakeContext, setSelectedCupCakeContext] = useState(null);
+  const [isCollapse, setIsCollapse] = useState(false);
 
-  const handleArrowClick = () => {
-    setIsExpanded(!isExpanded);
+  const HandleCollapseMenuAdmin = () => {
+    setIsCollapse(!isCollapse);
+
   };
 
   const handleTabClick = (selectedTab) => {
@@ -63,19 +65,34 @@ function Login() {
     setCupCakesContext,
     selectedCupCakeContext,
     setSelectedCupCakeContext,
+    isCollapse,
+    setIsCollapse,
   };
+
+  const handleOpenAdminMenuToAddProductWhenMenuIsEmpty = () => {
+    setTabs('AddProductForm');
+    setIsCollapse(!isCollapse);
+
+  }
+
 
   return (
     <CupCakeContext.Provider value={cupCakesContextValue}>
       <WrapperStyled>
         <OrderPageStyled>
           <NavBar userName={userName} />
+          { cupCakesContext.length <= 0 && ( 
+            <>
+          <h3>Il n'y a pas de cupcakes</h3>
+          <SbButton title="Ajouter un cupcake" onClick={handleOpenAdminMenuToAddProductWhenMenuIsEmpty}/> 
+          </>
+        )}
           <CupCakes CupCake={cupCakesContext} />
           {isAdmin && (
             <div>
               <AdminBar 
-                onArrowClick={handleArrowClick} 
-                isExpanded={isExpanded} 
+                onArrowClick={HandleCollapseMenuAdmin} 
+                isExpanded={isCollapse} 
                 onTabChange={handleTabClick}
               >
                 {tabs === 'AddProductForm' && <AddProductForm />}

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styled from "styled-components";
 import { theme } from "../../assets/theme";
 
@@ -13,7 +14,7 @@ const ToggleButton = ({ value, setValue, onClick }) => {
     <Wrapper>
       <Button active={value} onClick={handleClick}>
         <BallEffect active={value} />
-        <textInput active={value} >{textInputValue}</textInput>
+        <textInput  >{textInputValue}</textInput>
       </Button>
     </Wrapper>
   );
@@ -56,12 +57,4 @@ const BallEffect = styled.div`
   z-index: 0;
 `;
 
-const textInput = styled.div`
-  z-index: 1;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 17px;
-  color: #ffffff;
-  text-align: center;
-  font-family: "Pacifico";
-`;
+

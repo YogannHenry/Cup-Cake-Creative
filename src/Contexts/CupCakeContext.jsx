@@ -6,7 +6,10 @@ const CupCakeContext = createContext({
     setCupCakesContext: () => {},
 
     selectedCupCakeContext: "",
-    setSelectedCupCakeContext: () => {}
+    setSelectedCupCakeContext: () => {},
+
+    isCollapse: false,
+    setIsCollapse: () => {},
 });
 
 export default CupCakeContext;

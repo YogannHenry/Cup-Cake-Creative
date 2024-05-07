@@ -7,8 +7,6 @@ import { theme } from "@/assets/theme/index"
 // eslint-disable-next-line react/prop-types
 export default function Profile({ userName }) {
 
-  console.log("username:", userName)
-
   return (
     <ProfileStyled>
       <div className="info">

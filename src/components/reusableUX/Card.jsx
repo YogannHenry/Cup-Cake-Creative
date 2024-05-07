@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styled from 'styled-components';
 import SbButton  from './button';
 import CupCakeContext from "../../Contexts/CupCakeContext";
@@ -49,7 +50,7 @@ const StyledCard = styled.div`
 
 // eslint-disable-next-line react/prop-types
 const SbCard = ({ image, title, buttonTitle, price, button, shadow, width, height, fontFamily, id, cardIsSelectedByUSer }) => { 
-    const { cupCakesContext, setCupCakesContext, setSelectedCupCakeContext, selectedCupCakeContext } = useContext(CupCakeContext);
+    const { cupCakesContext, setCupCakesContext, setSelectedCupCakeContext } = useContext(CupCakeContext);
   const { isAdmin } = useIsAdmin(); 
     
     const handleDelete = (cupCakesId) => {

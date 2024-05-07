@@ -1,7 +1,6 @@
 import NavBarLeft from "./NavBarComponents/NavBarLeft";
 import NavBarRight from "./NavBarComponents/NavBarRight";
 import styled from "styled-components";
-import { theme } from "../../../assets/theme/index";
 import ToastAdmin from "../ToastAdmin";
 
 
