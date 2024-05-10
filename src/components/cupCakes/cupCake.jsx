@@ -5,11 +5,8 @@ import { theme } from "../../assets/theme/index";
 import { useShoppingCart } from "../../Contexts/ShoppingCartContext";
 
 export default function CupCake({ cupcake }) {
-  const SbCardStyled = styled.div`
-  color:${theme.colors.primary_cake};
-`;
-const { addToCart } = useShoppingCart();
 
+const { addToCart } = useShoppingCart();
 
   return (
     <SbCardStyled>
@@ -31,3 +28,14 @@ const { addToCart } = useShoppingCart();
     </SbCardStyled>
   );
 }
+
+// *************************** CSS *************************** //
+// *************************** CSS *************************** //
+// *************************** CSS *************************** //
+const SbCardStyled = styled.div`
+color:${theme.colors.primary_cake};
+`;
+
+// *************************** CSS *************************** //
+// *************************** CSS *************************** //
+// *************************** CSS *************************** //

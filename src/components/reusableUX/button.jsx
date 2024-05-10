@@ -2,6 +2,21 @@
 import styled from 'styled-components';
 import { theme } from '../../assets/theme/index'
 
+
+const SbButton = ({ title, icon, radius, onClick, size }) => {
+  return (
+    <StyledButton radius={radius} onClick={onClick} size={size}>
+      {title}
+      {icon && <Icon>{icon}</Icon>}
+    </StyledButton>
+  );
+};
+
+
+// *************************** CSS *************************** //
+// *************************** CSS *************************** //
+// *************************** CSS *************************** //
+
 const StyledButton = styled.button`
   background-color: ${theme.colors.primary_cake};
     border: none;
@@ -34,13 +49,9 @@ const Icon = styled.span`
   height: 24px;
 `;
 
-const SbButton = ({ title, icon, radius, onClick, size }) => {
-  return (
-    <StyledButton radius={radius} onClick={onClick} size={size}>
-      {title}
-      {icon && <Icon>{icon}</Icon>}
-    </StyledButton>
-  );
-};
+
+// *************************** CSS *************************** //
+// *************************** CSS *************************** //
+// *************************** CSS *************************** //
 
 export default SbButton;

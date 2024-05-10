@@ -4,7 +4,7 @@ import CupCakeContext from '../../../Contexts/CupCakeContext';
 
 const AddProductForm = () => {
     const [title, setTitle] = useState('');
-    const [price, setPrice] = useState('');
+    const [price, setPrice] = useState(null);
     const [image, setImage] = useState(null); 
     const [previewImage, setPreviewImage] = useState('');
     const { setCupCakesContext } = useContext(CupCakeContext);
@@ -14,7 +14,7 @@ const AddProductForm = () => {
     };
 
     const handlePriceChange = (e) => {
-        setPrice(e.target.value);
+        setPrice(parseFloat(e.target.value));
     };
 
     const handleImageChange = (e) => {
@@ -25,11 +25,14 @@ const AddProductForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const newCupCake = {
-            title: title,
-            price: price,
-            imageSource: image,
-        };
+       
+            const newCupCake = {
+                title: title,
+                price: price,
+                imageSource: image,
+            };
+
+
         setCupCakesContext((prevCupCakes) => [...prevCupCakes, newCupCake]);
         setTitle('');
         setPrice('');
@@ -51,7 +54,7 @@ const AddProductForm = () => {
                 </div>
                 <div>
                     <label htmlFor="price">Price:</label>
-                    <input type="text" id="price" value={price} onChange={handlePriceChange} />
+                    <input type="number" id="price" value={price} onChange={handlePriceChange} />
                 </div>
                 <div>
                     <label htmlFor="image">Image:</label>

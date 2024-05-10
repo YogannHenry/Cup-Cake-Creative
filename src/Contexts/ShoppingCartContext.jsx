@@ -1,11 +1,14 @@
-import React, { createContext, useContext, useState } from 'react';
+/* eslint-disable react/prop-types */
+import { createContext, useContext, useState } from 'react';
 
 export const ShoppingCartContext = createContext();
+
 export const useShoppingCart = () => useContext(ShoppingCartContext);
 
 
 
 export const ShoppingCartProvider = ({ children }) => {
+    
     const [cartItems, setCartItems] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
     const [cartItemQuantity, setCartItemQuantity] = useState(0);
