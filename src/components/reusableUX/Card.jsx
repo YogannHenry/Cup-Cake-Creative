@@ -5,6 +5,7 @@ import CupCakeContext from "../../Contexts/CupCakeContext";
 import { useContext } from 'react';
 import { useIsAdmin } from '../../Contexts/IsAdminContext';
 import { theme } from '../../assets/theme/index'
+import { formatPrice } from '../../utils/maths';
 
 
 
@@ -49,7 +50,7 @@ const StyledCard = styled.div`
 `;
 
 // eslint-disable-next-line react/prop-types
-const SbCard = ({ image, title, buttonTitle, price, button, shadow, width, height, fontFamily, id, cardIsSelectedByUSer }) => { 
+const SbCard = ({ image, title, buttonTitle, price, button, shadow, width, height, fontFamily, id, cardIsSelectedByUSer, addProduct }) => { 
     const { cupCakesContext, setCupCakesContext, setSelectedCupCakeContext } = useContext(CupCakeContext);
   const { isAdmin } = useIsAdmin(); 
     
@@ -65,6 +66,20 @@ const SbCard = ({ image, title, buttonTitle, price, button, shadow, width, heigh
     };
 
     const imageCupCake = `/src/assets${image}`;
+
+const cupCake = {
+    id,
+    image,
+    title,
+    price,
+}
+
+const handleAddToCart = () => {
+    // Pass a callback function to addProduct to avoid immediate invocation
+    addProduct(cupCake);
+}
+
+
     return (
         <StyledCard 
         shadow={shadow} 
@@ -73,16 +88,15 @@ const SbCard = ({ image, title, buttonTitle, price, button, shadow, width, heigh
         fontFamily={fontFamily}
         cardIsSelectedByUSer={cardIsSelectedByUSer}
         onClick={handleCupCakeSelection}>
-            {/* <img src={cupCakeImg} alt="card" /> */}
             {isAdmin && (
             <SbButton title="Delete" onClick={() => handleDelete(id)} radius={true}/>
         )}
             {image && <img src={imageCupCake} alt="card" />}
             <h3>{title}</h3>
             <footer>
-                <p>{price}</p>
+                <p>{formatPrice(price)}</p>
                 <div className="button-container">
-                { button && <SbButton title={buttonTitle} onClick={button.onClick} radius={true}/>}
+                { button && <SbButton title={buttonTitle} onClick={handleAddToCart} radius={true}/>}
                 </div>
             </footer>
         </StyledCard>

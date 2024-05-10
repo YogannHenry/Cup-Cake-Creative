@@ -1,14 +1,15 @@
 /* eslint-disable react/prop-types */
 import SbCard from "../reusableUX/Card";
-import { formatPrice } from "../../utils/maths";
 import styled from "styled-components";
 import { theme } from "../../assets/theme/index";
+import { useShoppingCart } from "../../Contexts/ShoppingCartContext";
 
 export default function CupCake({ cupcake }) {
-  const cupcakePrice = formatPrice(cupcake.price);
   const SbCardStyled = styled.div`
   color:${theme.colors.primary_cake};
 `;
+const { addToCart } = useShoppingCart();
+
 
   return (
     <SbCardStyled>
@@ -17,13 +18,15 @@ export default function CupCake({ cupcake }) {
       id={cupcake.id}
       image={cupcake.imageSource}
       title={cupcake.title}
-      price={cupcakePrice}
+      price={cupcake.price}
       width={"220px"}
       height={"280px"}
       button={true}
       shadow={true}
       buttonTitle={"Ajouter"}
       fontFamily={"Pacifico"}
+      addProduct={addToCart}
+
     />
     </SbCardStyled>
   );

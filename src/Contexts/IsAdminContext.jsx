@@ -5,6 +5,12 @@ const IsAdminContext = createContext();
 
 export const useIsAdmin = () => useContext(IsAdminContext);
 
+
+
+
+
+
+
 export const IsAdminProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(false);
 

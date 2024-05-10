@@ -11,6 +11,8 @@ import { useContext, useState } from "react";
 import CupCakeContext from "../../Contexts/CupCakeContext";
 import { fakeMenu } from "../../fakeData/fakeMenu";
 import SbButton from "../reusableUX/button";
+import { ShoppingCartProvider } from "../../Contexts/ShoppingCartContext";
+import ShoppingCart from "./ShoppingCart/ShoppingCart";
 
 
 const WrapperStyled = styled.div`
@@ -77,16 +79,22 @@ function Login() {
 
 
   return (
+    <ShoppingCartProvider>
     <CupCakeContext.Provider value={cupCakesContextValue}>
       <WrapperStyled>
         <OrderPageStyled>
+
           <NavBar userName={userName} />
+
           { cupCakesContext.length <= 0 && ( 
             <>
           <h3>Il n'y a pas de cupcakes</h3>
           <SbButton title="Ajouter un cupcake" onClick={handleOpenAdminMenuToAddProductWhenMenuIsEmpty}/> 
           </>
         )}
+
+        <ShoppingCart />
+
           <CupCakes CupCake={cupCakesContext} />
           {isAdmin && (
             <div>
@@ -100,9 +108,11 @@ function Login() {
               </AdminBar>
             </div>
           )}
+          
         </OrderPageStyled>
       </WrapperStyled>
     </CupCakeContext.Provider>
+    </ShoppingCartProvider>
   );
 }
 

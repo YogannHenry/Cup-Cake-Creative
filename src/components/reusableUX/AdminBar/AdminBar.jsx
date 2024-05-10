@@ -10,7 +10,7 @@ const AdminBarContainer = styled.div`
   display: flex;
   flex-direction: column;
   transition: background-color 0.3s ease;
-  border: 1px solid #b9b9b9;
+  /* border: 1px solid #b9b9b9; */
 `;
 
 const AdminBarButton = styled.div`
@@ -21,13 +21,15 @@ const AdminBarButton = styled.div`
   border-radius: 10px 10px 0 0;
   top: 10px;
   border: 1px solid black;
+  background-color: #ffffff;
+
 
   &:hover {
     background-color: black;
     color: white;
   }
 
-  &:focus {
+  &:checked {
     background-color: black;
     color: white;
   }

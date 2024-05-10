@@ -36,7 +36,6 @@ export default function CupCakes({ CupCake }) {
   return (
     <CupCakesStyled>
       <div className="grid-container">
-        {/* {CupCake.map((cupcake) => ( */}
         {CupCake.slice(0, 8).map((cupcake) => ( 
           <CupCakeItem 
             key={cupcake.id}
