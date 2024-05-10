@@ -22,11 +22,11 @@ const ShoppingCart = () => {
             ) : (
                 <ul>
                     {cartItems.map((cupcake, index) => (
-                        <SbSmallCard key={index}>
+                        <div key={index}>
                             
                                 <li>{cupcake.title}</li>
                                 <SbButton onClick={() => removeFromCart(cupcake.id)} title="delete">Remove</SbButton>
-                        </SbSmallCard>
+                        </div>
                     ))}
                 </ul>
             )}
