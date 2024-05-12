@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useShoppingCart } from '../../../Contexts/ShoppingCartContext';
 import SbButton from '../../reusableUX/button';
 import { formatPrice } from '../../../utils/maths';
-import SbSmallCard from '../../reusableUX/Card';
+import SbSmallCard from '../../reusableUX/SmallCard';
 
 const ShoppingCart = () => {
 
@@ -20,15 +20,18 @@ const ShoppingCart = () => {
             {cartItems.length === 0 ? (
                 <p>No items in the cart</p>
             ) : (
-                <ul>
+                <ShoppingCartItemsContainer>
                     {cartItems.map((cupcake, index) => (
-                        <div key={index}>
+                        <SbSmallCard 
+                        shadow
+                        radius
+                        key={index}>
                             
                                 <li>{cupcake.title}</li>
                                 <SbButton onClick={() => removeFromCart(cupcake.id)} title="delete">Remove</SbButton>
-                        </div>
+                        </SbSmallCard>
                     ))}
-                </ul>
+                </ShoppingCartItemsContainer>
             )}
             <p>Total Price: ${formatPrice(totalPrice)}</p>
         </ShoppingCartContainer>
@@ -52,7 +55,16 @@ const ShoppingCartContainer = styled.div`
     height: 100vh;
     background-color: #f2f2f2;
     padding: 20px;
+    gap: 10px;
 `;
+
+const ShoppingCartItemsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+`;
+    
 
 // *************************** CSS *************************** //
 // *************************** CSS *************************** //
