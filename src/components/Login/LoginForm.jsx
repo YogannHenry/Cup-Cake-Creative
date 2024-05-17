@@ -5,6 +5,7 @@ import { ChevronRightIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { theme } from "@/assets/theme/index";
 import styled from "styled-components";
 import TextInput from "../reusableUX/TextInput";
+import axios from "@/lib/axios";
 
 const LoginForm = () => {
   const [name, setName] = useState("");
@@ -12,35 +13,58 @@ const LoginForm = () => {
   const [errorMessages, setErrorMessages] = useState("");
   const navigate = useNavigate();
 
+  const csrf = () => axios.get("/sanctum/csrf-cookie");
+
+  const login = async ({ ...props }) => {
+    try {
+      await csrf();
+
+      await axios.post("/api/login", props);
+      navigate("/orderPage", { state: { userName: name } });
+
+      
+    } catch (error) {
+      if (error.response && error.response.status === 422) {
+        console.log(error.response.data.errors);
+      } else {
+        console.error(
+          "Une erreur s'est produite lors de la tentative de connexion :",
+          error
+        );
+      }
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (name.trim() === "") {
-      setErrorMessages("Ecris ton prénom gros suceur de planctons");
+      setErrorMessages("Ecris ton prénom gros gobeur de planctons");
       setUserName("");
       return;
     } else {
       setErrorMessages("");
     }
+
+    login({ password: "password", email: "test@example.com" });
+
     setUserName(name);
-    navigate("/orderPage", { state: { userName: name } });
 
     setName("");
   };
 
   return (
-    <LoginFormStyled
-    onSubmit={handleSubmit}>
+    <LoginFormStyled onSubmit={handleSubmit}>
       <h1>Bienvenue chez nous</h1>
-      <hr/>
+      <hr />
       <h2>Connectez-vous</h2>
 
       <TextInput
         value={name}
         onChange={(e) => setName(e.target.value)}
-        placeholder={"Entrez votre prénom"} 
-        icon={<UserCircleIcon />} 
-        />
+        placeholder={"Entrez votre prénom"}
+        icon={<UserCircleIcon />}
+      />
 
       <SbButton
         type="submit"
@@ -50,12 +74,11 @@ const LoginForm = () => {
       ></SbButton>
 
       {userName && <h2>Bonjour {userName}</h2>}
-      
-      <h3 >{errorMessages}</h3>
+
+      <h3>{errorMessages}</h3>
     </LoginFormStyled>
   );
 };
-
 
 // *************************** CSS *************************** //
 // *************************** CSS *************************** //
@@ -105,6 +128,5 @@ const LoginFormStyled = styled.form`
 // *************************** CSS *************************** //
 // *************************** CSS *************************** //
 // *************************** CSS *************************** //
-
 
 export default LoginForm;

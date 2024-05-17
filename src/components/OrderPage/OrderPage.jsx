@@ -7,12 +7,13 @@ import AdminBar from "../reusableUX/AdminBar/AdminBar";
 import { useIsAdmin } from '../../Contexts/IsAdminContext';
 import AddProductForm from "./ProductManagement/AddProductForm";
 import ModifyProductForm from "./ProductManagement/ModifyProductForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CupCakeContext from "../../Contexts/CupCakeContext";
 import { fakeMenu } from "../../fakeData/fakeMenu";
 import SbButton from "../reusableUX/button";
 import { ShoppingCartProvider } from "../../Contexts/ShoppingCartContext";
 import ShoppingCart from "./ShoppingCart/ShoppingCart";
+import axios from "@/lib/axios";
 
 
 function Login() {
@@ -20,7 +21,7 @@ function Login() {
   const userName = location.state?.userName || ""; 
   const { isAdmin } = useIsAdmin(); 
   const [tabs, setTabs] = useState("");
-  const [cupCakesContext, setCupCakesContext] = useState(fakeMenu);
+  const [cupCakesContext, setCupCakesContext] = useState([]);
   const [selectedCupCakeContext, setSelectedCupCakeContext] = useState(null);
   const [isCollapse, setIsCollapse] = useState(false);
 
@@ -34,6 +35,14 @@ function Login() {
   };
 
 
+const getCupCakes = async () => {
+  try {
+   const {data } = await axios.get("/api/cupcakes");
+    setCupCakesContext(data.data);
+  } catch (error) {
+    console.error("Une erreur s'est produite lors de la tentative de connexion :", error);
+  }
+};
 
   const cupCakesContextValue = {
     cupCakesContext,
@@ -49,6 +58,10 @@ function Login() {
     setIsCollapse(!isCollapse);
   }
 
+  useEffect(() => {
+    getCupCakes();
+  }
+  , []);
 
   return (
     <ShoppingCartProvider>
