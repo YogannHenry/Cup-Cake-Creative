@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { useIsAdmin } from "../../Contexts/IsAdminContext";
 import { theme } from "../../assets/theme/index";
 import { formatPrice } from "../../utils/maths";
+import axios from "@/lib/axios";
 
 const SbCard = ({
   image,
@@ -27,12 +28,24 @@ const SbCard = ({
   const { isAdmin } = useIsAdmin();
   const { removeFromCart } = useShoppingCart();
 
+
+  const deleteCupCake = async (id) => {
+    try {
+      await axios.delete(`/api/cupcakes/${id}`);
+    } catch (error) {
+      console.error("Une erreur s'est produite lors de la tentative de connexion :", error);
+    }
+  };
+
   const handleDelete = (cupCakesId) => {
-    setCupCakesContext((cupCakes) => {
-      return cupCakes.filter((cupCake) => cupCake.id !== cupCakesId);
-    });
+    // setCupCakesContext((cupCakes) => {
+    //   return cupCakes.filter((cupCake) => cupCake.id !== cupCakesId);
+    // });
+    deleteCupCake(cupCakesId);
+    
     removeFromCart(cupCakesId);
   };
+
 
   const handleCupCakeSelection = () => {
     const cupCake = cupCakesContext.find((cupCake) => cupCake.id === id);
